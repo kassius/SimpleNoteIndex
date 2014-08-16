@@ -16,7 +16,10 @@ $way = $SNI->directory;
 </head>
 
 <body>
-<div id="header"><h1><?php echo $SNI->directory; ?></h1></div>
+<div id="header">
+<h1><?php echo $SNI->directory; ?></h1>
+<a id="newbt" href="?new">NEW</a>
+</div>
 <div id="page">
 <?php echo $SNI->content; ?>
 </div>
@@ -90,6 +93,23 @@ EOT;
 	{
 		return "{$filename}";
 	}
+
+	static function create_file($filename = null)
+	{
+		$invalid = ($filename!==null) ? "File name is invalid" : "";
+		return <<<EOT
+<div id="create">
+{$invalid}
+<form method="post">
+<div id="createfilename">
+<input id="createinput" type="text" name="filename" />
+<div id="createextension">.md</div>
+</div>
+<input id="createsubmit" type="submit" name="create" />
+</form>
+</div>
+EOT;
+	}
 }
 
 class SimpleNoteIndex
@@ -109,10 +129,18 @@ class SimpleNoteIndex
 		{
 			file_put_contents($post['fileuri'], $post['content']);
 		}
+		else if(isset($post['create']))
+		{
+			$this->create_file($post['filename']);
+		}
 
 		if(isset($get['file']))
 		{
 			$this->load_file($get['file']);
+		}
+		else if(isset($get['new']))
+		{
+			$this->create_file();
 		}
 		else
 		{
@@ -136,7 +164,7 @@ class SimpleNoteIndex
 		}
 
 		$this->content = SNIMakeContent::index($fstr);
-		}
+	}
 
 	public function load_file($fileuri)
 	{
@@ -150,13 +178,29 @@ class SimpleNoteIndex
 		else
 		{
 			header("HTTP/1.0 404 Not Found\n");
-			exit(404);
+			die();
 		}
 
 		$Parsedown = new ParsedownExtra;
 		$markdown = $Parsedown->text($file);
 
 		return $this->content = SNIMakeContent::fileload($file,$markdown,$fileuri);
+	}
+
+	public function create_file($filename=null)
+	{
+		if($filename!==null) $filename .= ".md";
+		if(preg_match($this->regex, trim($filename)) !== 0)
+		{
+			file_put_contents($filename, "# {$filename}\n\n");
+			$url = $_SERVER['PHP_SELF']."?file=". urlencode($filename);
+			header("Location: {$url}");
+			die();
+		}
+		else
+		{
+			return $this->content = SNIMakeContent::create_file($filename);
+		}
 	}
 
 }

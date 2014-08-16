@@ -74,8 +74,10 @@ a
 
 .fileitem
 {
+	width: 100%;
 	padding: 0.5rem 0.5rem;
 	border-bottom: 1px solid #e9cfec;
+	display: block;
 }
 
 #text
@@ -96,3 +98,65 @@ a
 	width: 100%;
 	min-height: 300px;
 }
+
+#create
+{
+	width: 375px;
+	margin: 3rem auto;
+	overflow: overlay;
+	border: 1px solid #d1d0ce;
+
+}
+
+#createheader
+{
+	background-color: #7e587e;
+	color: #fff;
+	font-weight: bold;
+	padding: 0.5rem;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	text-align: center;
+}
+
+#createfilename
+{
+	margin: 0.5rem;
+	max-width: 100%;
+}
+
+#createinput
+{
+	width:85%;
+	height: 1.75rem;
+	float: left;
+	border: 1px solid #d1d0ce;
+	border-right: 0;
+	font-family: monospace;
+	font-size: 1rem;
+}
+
+#createextension
+{
+	width: 15%;
+	height: 1.75rem;
+	float: right;
+	text-align: center;
+	padding: 0.25rem;
+	border: 1px solid #d1d0ce;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	background-color: #e5e4e2;
+}
+
+#createsubmit
+{
+	margin: 0.5rem ;
+	float: right;
+}
+
+
+
+
+
+

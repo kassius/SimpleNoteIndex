@@ -18,7 +18,7 @@ $way = $SNI->directory;
 <body>
 <div id="header">
 <h1><?php echo $SNI->directory; ?></h1>
-<a id="newbt" href="?new">NEW</a>
+<?php if(!isset($_GET['new'])){ ?><a id="newbt" href="?new">NEW</a><?php } /* show new button only if ot in new file page */ ?>
 </div>
 <div id="page">
 <?php echo $SNI->content; ?>
@@ -99,13 +99,14 @@ EOT;
 		$invalid = ($filename!==null) ? "File name is invalid" : "";
 		return <<<EOT
 <div id="create">
+<div id="createheader">Filename</div>
 {$invalid}
 <form method="post">
 <div id="createfilename">
-<input id="createinput" type="text" name="filename" />
+<input id="createinput" type="text" name="filename" placeholder="Type new file name without extension" />
 <div id="createextension">.md</div>
 </div>
-<input id="createsubmit" type="submit" name="create" />
+<input id="createsubmit" type="submit" name="create" value="Create!" />
 </form>
 </div>
 EOT;
@@ -192,7 +193,7 @@ class SimpleNoteIndex
 		if($filename!==null) $filename .= ".md";
 		if(preg_match($this->regex, trim($filename)) !== 0)
 		{
-			file_put_contents($filename, "# {$filename}\n\n");
+			file_put_contents($filename, "# {$filename}\n");
 			$url = $_SERVER['PHP_SELF']."?file=". urlencode($filename);
 			header("Location: {$url}");
 			die();
@@ -204,6 +205,7 @@ class SimpleNoteIndex
 	}
 
 }
+
 /**
  * 
  *  This is the original Parsedown embedded in vim with

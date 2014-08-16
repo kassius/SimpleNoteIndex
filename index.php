@@ -61,7 +61,7 @@ EOT;
 
 	static function indexitem($fileuri,$filename)
 	{
-		return "<div class=\"fileitem\"><a href=\"?file={$fileuri}\">{$filename}</a></div>\n";
+		return "<div class=\"fileitem\"><a class=\"fileitemlink\" href=\"?file={$fileuri}\">{$filename}</a></div>\n";
 	}
 
 	/**

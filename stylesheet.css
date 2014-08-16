@@ -5,10 +5,24 @@ html, body
 	margin: 0;
 }
 
+h1, h2, h3, h4, h5, h6
+{ margin: 0; }
+
+a
+{
+	text-decoration: none;
+	color: #483c32;
+}
+
 #header, #page
 {
 	width: 80%;
 	margin: 0 auto;
+}
+
+#header
+{
+	margin-top: 0.5rem;
 }
 
 #header > h1
@@ -19,8 +33,20 @@ html, body
 #page
 {
 	margin-top: 1rem;
-	border: 1px solid #ddd;
 	overflow: overlay;
+}
+
+#files-header
+{
+	background-color: #7e587e;
+	color: #fff;
+	font-weight: bold;
+	padding: 0.3125rem;
+}
+
+.fileitem
+{
+	padding: 0.3125rem;
 }
 
 #text
@@ -28,6 +54,7 @@ html, body
 	width: 50%;
 	float: left;
 	border: 1px solid #ddd;
+	padding: 0.3125rem;
 }
 
 #edit

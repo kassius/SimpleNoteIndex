@@ -4,6 +4,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
 $SNI = new SimpleNoteIndex($_GET, $_POST);
 $title = $SNI->title;
+$way = $SNI->directory;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +16,7 @@ $title = $SNI->title;
 </head>
 
 <body>
+<div id="header"><h1><?php echo $SNI->directory; ?></h1></div>
 <div id="page">
 <?php echo $SNI->content; ?>
 </div>
@@ -93,13 +95,15 @@ class SimpleNoteIndex
 {
 	public $content;
 	public $title;
+	public $directory;
 
 	public $regex;
 
 	public function __construct($get, $post)
 	{
 		$this->regex = '/^[\w,\s-]+\.md$/';
-
+		$stairway = explode('/',getcwd());
+		$this->directory = array_pop($stairway);
 		if(isset($post['save'], $post['fileuri'], $post['content']))
 		{
 			file_put_contents($post['fileuri'], $post['content']);

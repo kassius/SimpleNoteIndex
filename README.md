@@ -6,6 +6,7 @@ Simple and beautiful formatted note directory using markdown syntax.
 ## Features
 
 * Simple `index.php` and `stylesheet.css`.
+* You can even let only the `index.php` and it will embed the css inline.
 * Lets you list, edit and create MD formatted files.
 * Uses Parsedown + Parsedown Extra.
 

@@ -12,7 +12,7 @@ $way = $SNI->directory;
 <head>
   <meta charset="utf-8" />
   <title><?php echo $title; ?></title>
-  <link rel="stylesheet" href="stylesheet.css" />
+  <?php echo SNIMakeContent::stylesheet("stylesheet.css"); /* If file is not present, echoes the embedded stylesheet */ ?>
 </head>
 
 <body>
@@ -110,6 +110,255 @@ EOT;
 </form>
 </div>
 EOT;
+	}
+
+	static function stylesheet($stylesheet_filename)
+	{
+		if(file_exists($stylesheet_filename))
+		{
+			return "<link rel=\"stylesheet\" href=\"{$stylesheet_filename}\" \>";
+		}
+		else
+		{
+			return <<<EOT
+<style>
+
+* { box-sizing: border-box; }
+
+html, body
+{
+	margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6
+{ margin: 0; }
+
+a
+{
+	text-decoration: none;
+	color: #483c32;
+}
+
+#header, #page
+{
+	width: 80%;
+	margin: 0 auto;
+}
+
+#header
+{
+	margin-top: 0.5rem;
+	overflow: overlay;
+}
+
+#header > h1
+{
+	max-width: 75%;
+	margin: 0;
+	display: inline-block;
+	float: left;
+}
+
+#header > h1 > a
+{
+	color: #657383;
+}
+
+#newbt
+{
+	width: 6.25rem;
+	height: 2.125rem;
+	float: right;
+	border-radius: 3px;
+	background-color: #e5e4e2;
+	border: 1px solid #d1d0ce;
+	color: #333;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 1rem;
+	padding: 0.5rem;
+	transition: padding-left 0.5s, color 0.5s, background-color 0.5s;
+}
+
+#newbt:hover
+{
+	color: #fff;
+	background-color: #bbc6cc;
+	padding-left: 1rem;
+}
+
+#page
+{
+	margin-top: 1rem;
+	overflow: overlay;
+}
+
+#files-header
+{
+	background-color: #7e587e;
+	color: #fff;
+	font-weight: bold;
+	padding: 0.5rem;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+#files
+{
+	width: 100%;
+}
+
+.fileitem
+{
+	border-bottom: 1px solid #e9cfec;
+}
+
+.fileitemlink
+{
+	display: block;
+	padding: 0.5rem 0.5rem;
+	transition: 0.5s padding-left, 0.5s background-color, 0.5s color;
+	font-weight: 700;
+}
+
+.fileitemlink:hover
+{
+	padding-left: 1rem;
+	background-color: #e3e4fa;
+	color: #333;
+}
+
+#text
+{
+	width: 50%;
+	float: left;
+	padding: 0.5rem 0.5rem 0.5rem 0;
+}
+
+#edit
+{
+	width: 50%;
+	float: right;
+}
+
+#text, #edit
+{
+	border-top: 1px solid #d1d0ce;
+	padding-top: 0.75rem;
+}
+
+#edittextarea
+{
+	width: 100%;
+	max-width: 100%;
+	min-height: 300px;
+	padding: 0.375rem;
+}
+
+#editbutton
+{
+	width: 100%;
+	height: 2.125rem;
+	float: right;
+	border-radius: 3px;
+	background-color: #e5e4e2;
+	border: 1px solid #d1d0ce;
+	color: #333;
+	text-transform: uppercase;
+	text-align: center;
+	font-family: serif;
+	font-size: 1rem;
+	padding: 0.5rem;
+	transition: padding-left 0.5s, color 0.5s, background-color 0.5s;
+}
+
+#editbutton:hover
+{
+	color: #483c32;
+	background-color: #bbc6cc;
+	padding-left: 1rem;
+}
+
+#create
+{
+	width: 375px;
+	margin: 3rem auto;
+	overflow: overlay;
+	border: 1px solid #d1d0ce;
+
+}
+
+#createheader
+{
+	background-color: #7e587e;
+	color: #fff;
+	font-weight: bold;
+	padding: 0.5rem;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	text-align: center;
+}
+
+#createfilename
+{
+	margin: 0.5rem;
+	max-width: 100%;
+}
+
+#createinput
+{
+	width: 85%;
+	height: 1.75rem;
+	float: left;
+	border: 1px solid #d1d0ce;
+	border-right: 0;
+	font-family: monospace;
+	font-size: 1rem;
+	padding-left: 0.25rem;
+}
+
+#createextension
+{
+	width: 15%;
+	height: 1.75rem;
+	float: right;
+	text-align: center;
+	padding: 0.25rem;
+	border: 1px solid #d1d0ce;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	background-color: #e5e4e2;
+}
+
+#createsubmit
+{
+	margin: 0.5rem ;
+	max-width: 100%;
+	height: 2.125rem;
+	float: right;
+	border-radius: 3px;
+	background-color: #e5e4e2;
+	border: 1px solid #d1d0ce;
+	color: #333;
+	text-transform: uppercase;
+	text-align: center;
+	font-family: serif;
+	font-size: 1rem;
+	padding: 0.5rem;
+	transition: padding-left 0.5s, color 0.5s, background-color 0.5s;
+}
+
+#createsubmit:hover
+{
+	color: #483c32;
+	background-color: #bbc6cc;
+	padding-left: 1rem;
+}
+
+</style>
+
+EOT;
+		}
 	}
 }
 
